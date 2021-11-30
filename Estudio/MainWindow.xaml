@@ -1,0 +1,23 @@
+﻿<Window x:Class="Estudio.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Estudio"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <TextBox HorizontalAlignment="Left" Margin="105,45,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Name="ip"/>
+        <TextBox HorizontalAlignment="Left" Margin="299,45,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="75" Name="porta"/>
+        <Button Content="Salvar" HorizontalAlignment="Left" Margin="400,43,0,0" VerticalAlignment="Top" Name="btOK" Click="BtOK_ClickAsync"></Button>
+        <Label Content="Servidor" HorizontalAlignment="Left" Margin="34,43,0,0" VerticalAlignment="Top"/>
+        <Label Content=":" HorizontalAlignment="Left" Margin="248,40,0,0" VerticalAlignment="Top"/>
+
+        <ListBox x:Name="ListaDeMusicas" HorizontalAlignment="Center" Width="600" SelectionChanged="ListaDeMusicas_SelectionChanged" Margin="0,100,0,170" />
+        <Button Content="Play" HorizontalAlignment="Left" Margin="165,293,0,0" VerticalAlignment="Top" x:Name="bt_Play" Click="BtPlay_ClickAsync"/>
+        <Label Content="Mensagem" HorizontalAlignment="Left" Margin="100,367,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="Mensagem" HorizontalAlignment="Left" Margin="178,371,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="116"/>
+        <Button x:Name="btEnviar" Content="Enviar" HorizontalAlignment="Left" Margin="334,365,0,0" VerticalAlignment="Top" Click="btEnviar_Ok"/>
+
+    </Grid>
+</Window>
