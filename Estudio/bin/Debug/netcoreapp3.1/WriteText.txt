@@ -1,1 +1,1 @@
-Servidor: 192.168.10.1 Porta: 80258 Data: 30/11/2021 00:00:00
+Servidor: testando Porta: testando porta Data: 30/11/2021 00:00:00

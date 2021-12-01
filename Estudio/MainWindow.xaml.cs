@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -23,13 +25,23 @@ namespace Estudio
     /// </summary>
     public partial class MainWindow : Window
     {
+        string path = "programacao.xml";
+        XmlTextReader tr = new XmlTextReader(path);
+
         public MainWindow()
         {
             InitializeComponent();
+
+            /*
+            while (tr.Read())
+            {
+                if (tr.NodeType == XmlNodeType.Text)
+                    ListaDeMusicas.Items.Add(tr.Value);
+            }
+            */
         }
 
-
-        private async void BtOK_ClickAsync(object sender, RoutedEventArgs e)
+    private void BtOK_Click(object sender, RoutedEventArgs e)
         {
             DateTime dateTime = DateTime.Today;
             string ipServidor = Convert.ToString(ip.Text);
@@ -37,21 +49,17 @@ namespace Estudio
             string servidor = ("Servidor: " + ipServidor + " Porta: " + portaServidor + " Data: " + dateTime.ToString() + Environment.NewLine);
             if (ipServidor != "" && portaServidor != "") //Se os campos forem diferentes de vazio, o botão fica habilidado           {
                 btOK.IsEnabled = true;
-            await File.WriteAllTextAsync("WriteText.txt", servidor);
+            File.WriteAllTextAsync("WriteText.txt", servidor);
         }
 
-        private void ListaDeMusicas_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        public void ListaDeMusicas_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            string[] vs = File.ReadAllLines("bdMusical.xml");
-            XElement xml = XElement.Parse("vs");
-
-            foreach (XElement el in xml.Elements())
+            while (tr.Read())
             {
-                ListBoxItem item = new ListBoxItem();
-                string NomeArquivo = el.Attribute("nomearquivo").Value;
-                string TempoTotal = el.Attribute("tempototal").Value;
-                item.Content = NomeArquivo + ": " + TempoTotal;
-                _ = ListaDeMusicas.Items.Add(item);
+                if (tr.NodeType == XmlNodeType.Element)
+                    if (tr.Name == "nome")
+                        if (tr.NodeType == XmlNodeType.Text)
+                            ListaDeMusicas.Items.Add(tr.Value);
             }
         }
 
