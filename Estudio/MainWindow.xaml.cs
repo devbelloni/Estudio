@@ -26,22 +26,27 @@ namespace Estudio
     public partial class MainWindow : Window
     {
         string path = "programacao.xml";
-        XmlTextReader tr = new XmlTextReader(path);
 
         public MainWindow()
         {
             InitializeComponent();
-
-            /*
+            XmlTextReader tr = new XmlTextReader(path); 
+/*            while (tr.Read())
+            {
+                if (tr.NodeType == XmlNodeType.Element)
+                    if (tr.Name == "nome")
+                        if (tr.NodeType == XmlNodeType.Text)
+                            ListaDeMusicas.Items.Add(tr.Value);
+            }
+*/
             while (tr.Read())
             {
                 if (tr.NodeType == XmlNodeType.Text)
                     ListaDeMusicas.Items.Add(tr.Value);
             }
-            */
         }
 
-    private void BtOK_Click(object sender, RoutedEventArgs e)
+        private void BtOK_Click(object sender, RoutedEventArgs e)
         {
             DateTime dateTime = DateTime.Today;
             string ipServidor = Convert.ToString(ip.Text);
@@ -52,15 +57,9 @@ namespace Estudio
             File.WriteAllTextAsync("WriteText.txt", servidor);
         }
 
-        public void ListaDeMusicas_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void ListaDeMusicas_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            while (tr.Read())
-            {
-                if (tr.NodeType == XmlNodeType.Element)
-                    if (tr.Name == "nome")
-                        if (tr.NodeType == XmlNodeType.Text)
-                            ListaDeMusicas.Items.Add(tr.Value);
-            }
+
         }
 
         private void BtPlay_ClickAsync(object sender, RoutedEventArgs e)
