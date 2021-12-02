@@ -17,6 +17,10 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Xml;
 using System.Xml.Linq;
+using System.Timers;
+using System.Threading;
+
+
 
 namespace Estudio
 {
@@ -30,23 +34,31 @@ namespace Estudio
         public MainWindow()
         {
             InitializeComponent();
-            XmlTextReader tr = new XmlTextReader(path); 
-/*            while (tr.Read())
+
+            XmlDocument xml = new XmlDocument();
+            xml.Load(path);
+            XmlNodeList nodeList = (xml.SelectNodes("programacao/blocos/bloco/items/item"));
+            List<string> nameList = new List<string>();
+            List<string> timeList = new List<string>();
+
+            foreach (XmlNode element in nodeList)
             {
-                if (tr.NodeType == XmlNodeType.Element)
-                    if (tr.Name == "nome")
-                        if (tr.NodeType == XmlNodeType.Text)
-                            ListaDeMusicas.Items.Add(tr.Value);
-            }
-*/
-            while (tr.Read())
-            {
-                if (tr.NodeType == XmlNodeType.Text)
-                    ListaDeMusicas.Items.Add(tr.Value);
+                var node = element?.ChildNodes[0]?.ChildNodes[1];
+
+                if (node != null)
+                {
+                    var name = node.FirstChild?.Value;
+                    nameList.Add(name);
+                    ListaDeMusicas.Items.Add(name);
+
+                    var time = node.FirstChild?.Value;
+                    timeList.Add(time);
+                }
             }
         }
 
-        private void BtOK_Click(object sender, RoutedEventArgs e)
+
+        public void BtOK_Click(object sender, RoutedEventArgs e)
         {
             DateTime dateTime = DateTime.Today;
             string ipServidor = Convert.ToString(ip.Text);
@@ -54,25 +66,57 @@ namespace Estudio
             string servidor = ("Servidor: " + ipServidor + " Porta: " + portaServidor + " Data: " + dateTime.ToString() + Environment.NewLine);
             if (ipServidor != "" && portaServidor != "") //Se os campos forem diferentes de vazio, o botão fica habilidado           {
                 btOK.IsEnabled = true;
+
             File.WriteAllTextAsync("WriteText.txt", servidor);
-        }
 
-        private void ListaDeMusicas_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
-
-        private void BtPlay_ClickAsync(object sender, RoutedEventArgs e)
-        {
 
         }
 
         private void btEnviar_Ok(object sender, RoutedEventArgs e)
         {
-            string mensagemServidor = Convert.ToString(Mensagem.Text);
+            //            string mensagemServidor = Convert.ToString(Mensagem.Text);
+        }
+
+        public void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        public void Music_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+        }
+
+        public void BtPlay_ClickAsync(object sender, RoutedEventArgs e)
+        {
+
+            playngMusic.Text = ListaDeMusicas.SelectedItem.ToString();
+
+            int hora = 0;
+            int min = 0;
+            int seg = 0;
+
+            while (hora < 12) 
+            {
+                timerbox.Text = ($"{hora} : {min} : {seg}");
+
+                if (seg <= 59)
+                {
+                    seg++;
+                }
+
+                if (seg > 59)
+                {
+                    seg = 0;
+                    min++;
+                }
+
+                if (min > 59)
+                {
+                    min = 0;
+                    hora++;
+                }
+                Thread.Sleep(1000);
+            }
         }
     }
 }
-
-
-

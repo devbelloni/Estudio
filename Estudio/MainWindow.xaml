@@ -12,11 +12,13 @@
         <Button Content="Salvar" HorizontalAlignment="Left" Margin="400,43,0,0" VerticalAlignment="Top" Name="btOK" Click="BtOK_Click"></Button>
         <Label Content="Servidor" HorizontalAlignment="Left" Margin="34,43,0,0" VerticalAlignment="Top"/>
         <Label Content=":" HorizontalAlignment="Left" Margin="248,40,0,0" VerticalAlignment="Top"/>
-        <ListBox x:Name="ListaDeMusicas" HorizontalAlignment="Center" Width="600" SelectionChanged="ListaDeMusicas_SelectionChanged" Margin="0,100,0,170" />
-        <Button Content="Play" HorizontalAlignment="Left" Margin="165,293,0,0" VerticalAlignment="Top" x:Name="bt_Play" Click="BtPlay_ClickAsync"/>
-        <Label Content="Mensagem" HorizontalAlignment="Left" Margin="100,367,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="Mensagem" HorizontalAlignment="Left" Margin="178,371,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="116"/>
-        <Button x:Name="btEnviar" Content="Enviar" HorizontalAlignment="Left" Margin="334,365,0,0" VerticalAlignment="Top" Click="btEnviar_Ok"/>
+        <ListBox x:Name="ListaDeMusicas" HorizontalAlignment="Center" Width="600" Margin="0,166,0,104" SelectionMode="Extended" SelectionChanged="Music_SelectionChanged" />
+        <Button Content="Play" HorizontalAlignment="Left" Margin="109,350,0,0" VerticalAlignment="Top" x:Name="bt_Play" Click="BtPlay_ClickAsync"/>
+        <Label x:Name="mensagemServidor" Content="Mensagem" HorizontalAlignment="Left" Margin="109,389,0,0" VerticalAlignment="Top" Width="185"/>
+        <TextBox HorizontalAlignment="Left" Margin="200,395,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="75" Name="mensagem"/>
+        <Button x:Name="btEnviar" Content="Enviar" HorizontalAlignment="Left" Margin="334,395,0,0" VerticalAlignment="Top" Click="btEnviar_Ok"/>
+        <TextBox x:Name="playngMusic" HorizontalAlignment="Left" Margin="275,135,0,0"  TextWrapping="Wrap" VerticalAlignment="Top" Width="120" TextChanged="TextBox_TextChanged"/>
+        <TextBox x:Name="timerbox" HorizontalAlignment="Left" Margin="430,135,0,0"  TextWrapping="Wrap" VerticalAlignment="Top" Width="120" TextChanged="TextBox_TextChanged"/>
 
     </Grid>
 </Window>
