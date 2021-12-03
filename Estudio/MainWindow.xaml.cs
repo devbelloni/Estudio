@@ -19,6 +19,7 @@ using System.Xml;
 using System.Xml.Linq;
 using System.Timers;
 using System.Threading;
+using System.Diagnostics;
 
 
 
@@ -29,7 +30,7 @@ namespace Estudio
     /// </summary>
     public partial class MainWindow : Window
     {
-        string path = "programacao.xml";
+        readonly string path = "programacao.xml";
 
         public MainWindow()
         {
@@ -39,7 +40,6 @@ namespace Estudio
             xml.Load(path);
             XmlNodeList nodeList = (xml.SelectNodes("programacao/blocos/bloco/items/item"));
             List<string> nameList = new List<string>();
-            List<string> timeList = new List<string>();
 
             foreach (XmlNode element in nodeList)
             {
@@ -47,16 +47,12 @@ namespace Estudio
 
                 if (node != null)
                 {
-                    var name = node.FirstChild?.Value;
+                    var name = node.LastChild?.Value;
                     nameList.Add(name);
-                    ListaDeMusicas.Items.Add(name);
-
-                    var time = node.FirstChild?.Value;
-                    timeList.Add(time);
+                    ListaDeMusicas.Items.Add($"{name}");
                 }
             }
         }
-
 
         public void BtOK_Click(object sender, RoutedEventArgs e)
         {
@@ -66,57 +62,37 @@ namespace Estudio
             string servidor = ("Servidor: " + ipServidor + " Porta: " + portaServidor + " Data: " + dateTime.ToString() + Environment.NewLine);
             if (ipServidor != "" && portaServidor != "") //Se os campos forem diferentes de vazio, o botão fica habilidado           {
                 btOK.IsEnabled = true;
-
             File.WriteAllTextAsync("WriteText.txt", servidor);
-
-
         }
 
-        private void btEnviar_Ok(object sender, RoutedEventArgs e)
+        private void BtEnviar_Ok(object sender, RoutedEventArgs e)
         {
-            //            string mensagemServidor = Convert.ToString(Mensagem.Text);
-        }
-
-        public void TextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
-
-        public void Music_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
+            string mensagemServidor = Convert.ToString(mensagem.Text);
+            if (mensagemServidor != "") //Se o campo for diferente de vazio, o botão fica habilidado           
+            { 
+                btOK.IsEnabled = true; 
+            }
+            File.WriteAllTextAsync("Servidor.txt", mensagemServidor);
         }
 
         public void BtPlay_ClickAsync(object sender, RoutedEventArgs e)
         {
-
             playngMusic.Text = ListaDeMusicas.SelectedItem.ToString();
+            //iniciando timer
+            //Por algum motivo a contagem do tempo da música trava o aplicativo
 
-            int hora = 0;
-            int min = 0;
-            int seg = 0;
 
-            while (hora < 12) 
+/*            int tempototal = 24000;
+              while (tempototal != 0)
             {
-                timerbox.Text = ($"{hora} : {min} : {seg}");
-
-                if (seg <= 59)
-                {
-                    seg++;
-                }
-
-                if (seg > 59)
-                {
-                    seg = 0;
-                    min++;
-                }
-
-                if (min > 59)
-                {
-                    min = 0;
-                    hora++;
-                }
+                timerbox.Text = ($"{tempototal} segundos");
+                tempototal--;
                 Thread.Sleep(1000);
             }
+*/
         }
+
+
     }
 }
+

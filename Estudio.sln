@@ -7,6 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Estudio", "Estudio\Estudio.
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D21AD02D-A0FE-4B5D-A2FE-EEDB67698C21}"
 	ProjectSection(SolutionItems) = preProject
+		Estudio\bin\Debug\netcoreapp3.1\logo.jpg = Estudio\bin\Debug\netcoreapp3.1\logo.jpg
 		Estudio\bin\Debug\netcoreapp3.1\programacao.xml = Estudio\bin\Debug\netcoreapp3.1\programacao.xml
 	EndProjectSection
 EndProject
